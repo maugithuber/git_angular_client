@@ -1,0 +1,101 @@
+
+<div class="col-lg-6 col-lg-offset-3">
+
+        <div>
+
+
+                <h1 class="h1-strong text-center" ><span class="glyphicon glyphicon-home"></span> {{title}} </h1> 
+                                <div class="col-md-offset-5">
+                                        <button class="btn btn-warning btn-sm" (click)="refresh($event)" >
+                                                <span class="glyphicon glyphicon-refresh"></span> Refrescar
+                                </button>
+                                </div>
+                <br>
+
+                        
+                        <div class="loading" *ngIf = "loading">
+                                <img src="../../../assets/loading.gif" >
+                        </div>
+        
+        </div>
+
+ 
+        <div id="publications">
+                        <div *ngFor = "let publication of publications" class="item-publication">
+                                <div class="panel panel-default">
+                                   
+                                        <div class="panel-body">
+                
+                                              <div class="image-user pull-left">
+                                                         <a  [routerLink]="['/perfil',publication.user._id]">
+                                                                <img src="{{ url + 'get-image-user/' + publication.user.image }}" *ngIf="publication.user.image">
+                                                                <img src="assets/default.png" class="avatar-default" *ngIf="!publication.user.image">
+                                                          </a>
+                                                </div>
+                
+                                                <div>     
+                                                         <a [routerLink]="['/perfil',publication.user._id]" class="user-name">{{publication.user.name + ' '+ publication.user.surname}}</a>
+                                                         &nbsp;  | &nbsp;
+                                                         <span class="date">{{  (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo  }}</span>       
+                                                </div>
+                
+                                                <div class="publication-text">{{publication.text}} </div>
+
+                                                <div class="pull-right">
+                                                        <!--
+                                                                <button class="btn btn-info btn-sm" (click)="refresh($event)" >
+                                                                                <span class="glyphicon glyphicon-comment"></span>
+                                                                </button>
+                                                        -->
+
+
+                                                                <div *ngIf ="publication._id != identity._id" >
+                                                                        <button class="btn btn-default btn-sm" *ngIf = "likes.indexOf(publication._id) < 0" (click)="likePub(publication._id)">
+                                                                                <span class="glyphicon glyphicon-heart"></span>
+                                                                                
+                                                                        </button>
+                                                                        
+                                                                        <button class="btn btn-info btn-sm" *ngIf = "likes.indexOf(publication._id) >= 0"
+                                                                                (mouseenter)="mouseEnter(publication._id)"
+                                                                                (mouseleave)="mouseLeave(publication._id)"
+                                                                                (click)="unlikePub(publication._id)"
+                                                                                [class.btn-danger]="publication._id == likePubOver">
+                                                                        <span *ngIf="publication._id == likePubOver; else liking">
+                                                                                <span class="glyphicon glyphicon-remove"></span>
+                                                                                
+                                                                                </span>
+                                                                        <ng-template #liking>
+                                                                                <span class="glyphicon glyphicon-heart"></span>
+                                                                                   
+                                                                        </ng-template>
+                                                        
+                                                                        </button>
+                                                                </div>
+                                                </div>
+                       
+
+                                                
+
+
+                                                <div class="col-lg-12" *ngIf="publication.file != 'null' ">
+                                                        <br>
+                                                    
+                                                        <img  src="{{ url + 'get-image-pub/' + publication.file}}"  class="col-lg-12">
+                                                </div>
+                                         </div>
+                       
+                                </div>
+                        </div>
+                        
+                        <div class="col-lg-12 text-center" *ngIf="publications && publications.length && (publications.length > 1) ">
+                            <p>
+                                <button class="btn btn-warning" (click)="viewMore()" *ngIf="!noMore">
+                                        <span class="glyphicon glyphicon-plus-sign"> </span>
+                                </button>
+                             </p>    
+                        </div>
+                </div>
+
+</div>
+
+

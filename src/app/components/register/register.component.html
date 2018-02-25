@@ -1,0 +1,59 @@
+
+
+
+  <div class="col-md-4 col-md-offset-4">
+    <h1 class="h1-strong text-center">{{title}}</h1>
+    
+    <div class="alert alert-success" *ngIf="status == 'success'">   
+        Registro realizado correctamente!, <a [routerLink]="['/login']" >Inicia sesión aqui</a>
+    </div>
+    <div class="alert alert-danger" *ngIf="status == 'error'">   
+       El registro NO ha podido realizarse, intenta nuevamente
+    </div>
+
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+        <p>
+            <label>Nombre:</label>
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control"required>
+            <span *ngIf="!name.valid && name.touched">
+                    El nombre es obligatorio!
+            </span>
+        </p>
+
+        <p>
+            <label>Apellido:</label>
+            <input type="text" class="name" name="surname" #surname="ngModel" [(ngModel)]="user.surname" class="form-control"required>
+            <span *ngIf="!surname.valid && surname.touched">
+                    El apellido es obligatorio!
+            </span>
+        </p>
+
+        <p>
+            <label>Apodo:</label>
+            <input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control"required>
+            <span *ngIf="!nick.valid && nick.touched">
+                    El apodo es obligatorio!
+            </span>
+        </p>
+
+        <p>
+            <label>Correo Electrónico:</label>
+            <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control"required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            <span *ngIf="!email.valid && email.touched">
+                    El Correo Electrónico es obligatorio!
+            </span>
+        </p>
+
+        <p>
+            <label>Contraseña</label>
+            <input type="password"name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control"required>
+            <span *ngIf="!password.valid && password.touched">
+                    La Contraseña es obligatoria!
+            </span>
+        </p>
+
+        <input type="submit" value="Registrarse" class="btn btn-info btn-block" [disabled]="!registerForm.valid">
+    </form>
+</div>
+

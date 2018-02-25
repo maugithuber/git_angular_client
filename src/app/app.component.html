@@ -1,0 +1,184 @@
+<div class="navigation col-lg-12">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a [routerLink]="['']" class="navbar-brand">
+              <!-- <span class="glyphicon glyphicon-heart"></span> --> {{title}} 
+            </a>
+        </div>
+
+   <div class="collapse navbar-collapse" id="app-navbar-collapse">
+
+      <ul class="nav navbar-nav" *ngIf = "identity">
+
+        <!--
+        <li>
+          <a [routerLink]="['/home']" [routerLinkActive]="['active']">
+            <span class="glyphicon glyphicon-th-list"></span>
+            Inicio
+          </a>
+        </li>
+        -->
+              <li>
+              <a [routerLink]="['/timeline']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-home"></span>
+                Timeline
+              </a>
+            </li>
+
+            <li>
+              <a  [routerLink]="['/gente']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-user"></span>
+               Gente
+              </a>
+            </li>
+
+            <li>
+                <a  [routerLink]="['/mensajes']" [routerLinkActive]="['active']">
+                  <span class="glyphicon glyphicon-send"></span>
+                  Mensajes
+                </a>
+              </li>
+              <!-- <li>
+                <a  [routerLink]="['/timeline']">
+                  <span class="glyphicon glyphicon-bell"></span>
+                  Mensajes
+                </a>
+              </li> -->
+
+          </ul>
+
+
+
+
+          
+
+
+          <ul class="nav navbar navbar-nav navbar-right" *ngIf="!identity">
+            <li>
+              <a  [routerLink]="['/login']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-log-in"></span>
+                Ingresar
+              </a>
+            </li>
+
+            <li>
+              <a  [routerLink]="['/register']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-user"></span>
+                Registrarse
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+
+              <li>
+                  <a  href="#myModal"  role="button" data-toggle="modal">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nuevo
+                  </a>
+                </li>
+
+
+
+
+            <li class="avatar">
+          <!--   cargar imagen de user -->
+          <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image">
+          <img src="../assets/default.png " *ngIf="identity && !identity.image">
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  {{identity.name}} <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <a [routerLink]="['/perfil',identity._id]">
+                      <span class="glyphicon glyphicon-user"></span>
+                      Mi perfil
+                    </a>
+                  </li>
+
+                  <li>
+                      <a  [routerLink]="['/mis-datos']" >
+                      <span class="glyphicon glyphicon-cog"></span>
+                        Mis datos
+                      </a>
+                    </li>
+
+                    <li>
+                        <a class="pointer" (click)="logout()">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                          Salir
+                        </a>
+                      </li>
+                </ul>
+            </li>
+      </ul>
+    </div>
+      
+    </div>
+  </nav>
+</div>
+
+
+
+
+                                 
+                                  
+                                  <!-- Modal HTML -->
+                                  <div class="col-md-6 col-md-offset-3" >
+                                  <div id="myModal" class="modal fade">
+                                          <div class="modal-dialog">
+                                              <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm, $event)">
+                                                  <div class="modal-content">
+                                                      <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times; </button>
+                                                              <h1 class="modal-title text-center">Publicación</h1>
+                                                      </div>
+                                              
+                                                      <div class="modal-body" >
+                                                          <p>
+                                                              <label >¿Qué tienes en mente?</label>
+                                                              <textarea name="text" #text="ngModel" [(ngModel)]="publication.text"  class="form-control" required>
+                                                              </textarea>
+                                                              
+                                                              <span *ngIf="!text.valid && text.touched">
+                                                                  El texto de la publicación es obligatorio:
+                                                              </span>
+                                                          </p>
+                                                          <p>
+                                                              <label>Sube una foto</label>
+                                                              <input type="file" placeholder="subir imagen" (change)="fileChangeEvent($event)"> 
+                                                          </p>
+                                                      </div>
+
+                                                      <div class="modal-footer">
+                                                          
+                                                          <div *ngIf="status =='success'" class="alert alert-info pull-left" role="alert">Publicacion realizada correctamente !</div>
+                                           
+                                                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                              <input type="submit" value="enviar"  class="btn btn-success"  [disabled]="!newPubForm.form.valid">
+                                                      </div>
+                                                  </div>
+                                                </form>
+
+                                          </div>
+                                  </div>
+                                    <!--  end modal -->
+
+                                  </div>
+
+
+<router-outlet></router-outlet>
+
