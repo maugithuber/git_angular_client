@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, DoCheck{  //implementar OnInit, DoC
     private _publicationService:PublicationService,
     private _uploadService:UploadService,    
   ){
-    this.title = 'ISAGRAM';
+    this.title = 'OFERTON';
     this.url = GLOBAL.url;
     this.identity = this._userService.getIdentity();
     // this.token = this._userService.getToken();
