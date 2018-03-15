@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import  { HttpClientModule } from '@angular/common/http';
 import { routing, appRoutingProviders } from './app.routing';// configuraciones de routing
 
+
+import { MaterializeModule } from 'angular2-materialize';
 //pipes
 import { MomentModule } from 'angular2-moment';
 import { SearchPipe } from './pipes/search.pipe';
@@ -54,7 +56,8 @@ import { UserGuard } from './services/user.guard';
     FormsModule,
     HttpClientModule,
     MomentModule,
-    MessagesModule
+    MessagesModule,
+    MaterializeModule
   ],
   providers: [ //servicios
     appRoutingProviders,
